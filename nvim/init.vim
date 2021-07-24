@@ -6,9 +6,9 @@ let mapleader = " "
 set autoindent
 set expandtab
 set shiftround
-set shiftwidth=4
 set smarttab
-set tabstop=4
+set tabstop=2
+set shiftwidth=2
 
 set hlsearch
 set ignorecase
@@ -35,9 +35,10 @@ set visualbell
 set mouse=a
 set title
 
-set foldmethod=indent
-set foldnestmax=3
+set foldmethod=indent   
+set foldnestmax=10
 set nofoldenable
+set foldlevel=2
 
 set autoread
 set backspace=indent,eol,start
@@ -47,47 +48,30 @@ set noswapfile
 set hidden
 set history=1000
 set nomodeline
-set spell
 set termguicolors
 set cursorcolumn 
 
 " Let's save undo info!
 if !isdirectory($HOME."/.vim")
-    call mkdir($HOME."/.vim", "", 0770)
+  call mkdir($HOME."/.vim", "", 0770)
 endif
 if !isdirectory($HOME."/.vim/undo-dir")
-    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+  call mkdir($HOME."/.vim/undo-dir", "", 0700)
 endif
 set undodir=~/.vim/undo-dir
 set undofile
 
+" let g:sonokai_style = 'default'
+let g:lightline = {'colorscheme' : 'quantum'}
+set background=dark " dark theme
+" set background=light  " light theme
+set t_Co=256
 
-colorscheme hybrid 
-set background=dark
+colorscheme quantum 
 
-
-
-" let g:one_allow_italics = 1
-" let base16colorspace=256  " Access colors present in 256 colorspace
-" let g:tempus_enforce_background_color=1
-
-
-" let g:airline_theme='one'
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#formatter = 'default'
-
-
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
-
-
+" colorscheme tokyonight 
 
 source $HOME/.config/nvim/coc.vim
-
-
-
 
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <leader>wh <C-\><C-n><C-w>h
@@ -117,9 +101,37 @@ nnoremap <C-u> :UndotreeToggle<CR>
 
 nnoremap <leader>bd :Bdelete<CR>
 
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+}
+EOF
+lua <<EOF
+require('nvim-biscuits').setup({
+  default_config = {
+    max_length = 12,
+    min_distance = 5,
+    prefix_string = " 📎 "
+  },
+  language_config = {
+    html = {
+      prefix_string = " 🌐 "
+    },
+    javascript = {
+      prefix_string = " ✨ ",
+      max_length = 80
+    },
+    liquid = {
+      prefix_string = " ✨ ",
+      max_length = 80
+    },
+    python = {
+      disabled = true
+    }
+  }
+})
+EOF
 
-set t_Co=256
-set termguicolors
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -137,13 +149,12 @@ nmap <leader>for :CocCommand prettier.formatFile<CR>
 
 nmap <leader>mdp  <Plug>MarkdownPreviewToggle
 
-xmap <leader>f  <Plug>(coc-format-formatFile)
+vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup autoindent
-    au!
-    autocmd BufWritePre * :normal migg=G`i
-augroup End
+" augroup autoindent
+"     au!
+"     autocmd BufWritePre * :normal migg=G`i
+" augroup End
 
 " " Copy to clipboard
 vnoremap  <leader>y  "+y
@@ -163,16 +174,43 @@ vnoremap <leader>P "+P
 " autocmd BufEnter *.liquid :set ft=html
 " autocmd BufEnter *.scss.liquid :set ft=scss
 
-xmap <leader>a <Plug>(coc-codeaction-selected)
-nmap <leader>a <Plug>(coc-codeaction-selected)
+nnoremap <silent> K :call CocAction('doHover')<CR>
+nmap <leader>do <Plug>(coc-codeaction)
+nmap <leader>rn <Plug>(coc-rename)
 
 let g:coc_filetype_map = {
-            \ 'liquid': 'html',
-            \ }
+      \ 'liquid': 'html',
+      \ }
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_theme='hybrid'
 
 nnoremap <silent> <C-z> :ToggleTerminal<Enter>
 tnoremap <silent> <C-z> <C-\><C-n>:ToggleTerminal<Enter>
+
+" let g:mta_filetypes = {
+"             \ 'html' : 1,
+"             \ 'xhtml' : 1,
+"             \ 'xml' : 1,
+"             \ 'liquid' : 1,
+"             \ 'javascript.jsx' : 1,
+"             \ 'javascript.tsx' : 1,
+"             \}
+
+imap ii <Esc>
+
+
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+
+" augroup autoindent
+"   au!
+"   autocmd BufWritePre * :normal gg=G``
+" augroup End
+
+" autocmd FileType * setlocal shiftwidth=2 softtabstop=4 expandtab

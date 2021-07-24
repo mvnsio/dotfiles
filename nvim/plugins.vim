@@ -1,32 +1,31 @@
 call plug#begin('~/.vim/plugged')
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'mhartington/oceanic-next'
-Plug 'lifepillar/vim-gruvbox8'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
-Plug 'kdheepak/lazygit.nvim'
 Plug 'caenrique/nvim-toggle-terminal'
 
+Plug 'code-biscuits/nvim-biscuits'
 
-Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+Plug 'sainnhe/sonokai'
+
+Plug 'kjssad/quantum.vim'
+
+" Plug 'HerringtonDarkholme/yats.vim'
+" or Plug 'leafgarland/typescript-vim'
+
+" Plug 'chemzqm/vim-jsx-improve'
+Plug 'maxmellon/vim-jsx-pretty'
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
-Plug 'w0ng/vim-hybrid'
 
-Plug 'flrnprz/plastic.vim'
+Plug 'itchyny/lightline.vim'
 
-Plug 'jnurmine/zenburn'
-
+Plug 'ghifarit53/tokyonight-vim'
 
 
 Plug 'TovarishFin/vim-solidity'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'romgrk/github-light.vim'
-Plug 'ghifarit53/tokyonight-vim'
 
-Plug 'arcticicestudio/nord-vim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -46,13 +45,11 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 Plug 'dikiaap/minimalist'
 
-Plug 'rakr/vim-one'
-
 Plug 'moll/vim-bbye'
 
 Plug 'mbbill/undotree'
 
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-commentary'
 
@@ -62,5 +59,5 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 call plug#end()
 
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-snippets', 'coc-julia', 'coc-svelte', 'coc-go', 'coc-explorer', 'coc-pairs']
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-julia', 'coc-svelte', 'coc-go', 'coc-explorer', 'coc-pairs']
 
