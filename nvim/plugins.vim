@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'caenrique/nvim-toggle-terminal'
 
-Plug 'code-biscuits/nvim-biscuits'
 
 Plug 'sainnhe/sonokai'
 

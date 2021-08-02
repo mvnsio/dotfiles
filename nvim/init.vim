@@ -62,12 +62,12 @@ set undodir=~/.vim/undo-dir
 set undofile
 
 " let g:sonokai_style = 'default'
-let g:lightline = {'colorscheme' : 'quantum'}
+let g:lightline = {'colorscheme' : 'tokyonight'}
 set background=dark " dark theme
 " set background=light  " light theme
 set t_Co=256
 
-colorscheme quantum 
+colorscheme tokyonight 
 
 " colorscheme tokyonight 
 
@@ -100,37 +100,6 @@ nnoremap <C-u> :UndotreeToggle<CR>
 :nnoremap <C-e> :CocCommand explorer<CR>
 
 nnoremap <leader>bd :Bdelete<CR>
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-}
-EOF
-lua <<EOF
-require('nvim-biscuits').setup({
-  default_config = {
-    max_length = 12,
-    min_distance = 5,
-    prefix_string = " 📎 "
-  },
-  language_config = {
-    html = {
-      prefix_string = " 🌐 "
-    },
-    javascript = {
-      prefix_string = " ✨ ",
-      max_length = 80
-    },
-    liquid = {
-      prefix_string = " ✨ ",
-      max_length = 80
-    },
-    python = {
-      disabled = true
-    }
-  }
-})
-EOF
 
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -208,9 +177,9 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
 endif
 
 
-" augroup autoindent
-"   au!
-"   autocmd BufWritePre * :normal gg=G``
-" augroup End
+augroup autoindent
+  au!
+  autocmd BufWritePre * :normal gg=G``
+augroup End
 
-" autocmd FileType * setlocal shiftwidth=2 softtabstop=4 expandtab
+autocmd FileType * setlocal shiftwidth=2 softtabstop=4 expandtab
