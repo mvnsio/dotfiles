@@ -2,21 +2,31 @@ call plug#begin('~/.vim/plugged')
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 
+Plug 'fannheyward/telescope-coc.nvim'
+
+Plug 'morhetz/gruvbox'
+Plug 'leafoftree/vim-svelte-plugin'
+
+
 Plug 'caenrique/nvim-toggle-terminal'
 
+Plug 'lifepillar/vim-solarized8'
+Plug 'NLKNguyen/papercolor-theme'
 
-Plug 'sainnhe/sonokai'
+Plug 'phanviet/vim-monokai-pro'
 
-Plug 'kjssad/quantum.vim'
+Plug 'andymass/vim-matchup'
 
-" Plug 'HerringtonDarkholme/yats.vim'
-" or Plug 'leafgarland/typescript-vim'
+Plug 'kristijanhusak/vim-hybrid-material'
 
-" Plug 'chemzqm/vim-jsx-improve'
+
+
+Plug 'glepnir/dashboard-nvim'
+
+Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-
+Plug 'folke/todo-comments.nvim'
 
 Plug 'itchyny/lightline.vim'
 
@@ -48,6 +58,7 @@ Plug 'moll/vim-bbye'
 
 Plug 'mbbill/undotree'
 
+Plug 'code-biscuits/nvim-biscuits'
 " Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-commentary'

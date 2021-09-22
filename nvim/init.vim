@@ -3,6 +3,9 @@ source $HOME/.config/nvim/plugins.vim
 
 let mapleader = " "
 
+let g:loaded_matchit = 1
+
+
 set autoindent
 set expandtab
 set shiftround
@@ -20,7 +23,7 @@ set encoding=utf-8
 set linebreak
 set scrolloff=10
 set sidescrolloff=5
-syntax enable
+syntax enable 
 set wrap
 
 set laststatus=2
@@ -62,14 +65,14 @@ set undodir=~/.vim/undo-dir
 set undofile
 
 " let g:sonokai_style = 'default'
-let g:lightline = {'colorscheme' : 'tokyonight'}
-set background=dark " dark theme
+let g:lightline = {'colorscheme' : 'gruvbox'}
+" set background=dark " dark theme
 " set background=light  " light theme
-set t_Co=256
 
-colorscheme tokyonight 
+" let g:lightline.colorscheme='onehalfdark'
 
-" colorscheme tokyonight 
+set background=dark
+colorscheme gruvbox 
 
 source $HOME/.config/nvim/coc.vim
 
@@ -83,13 +86,16 @@ nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
 nnoremap <leader>wl <C-w>l
 
-nnoremap <leader>fs :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+" nnoremap <leader>fs :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <leader>fw :lua require('telescope.builtin').grep_string()<CR>
 " nnoremap <leader>fg :lua require('telescope.builtin').git_files()<CR>
-nnoremap <leader>ff :lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({}))<CR>
+nnoremap <leader>ff :lua require('telescope.builtin').find_files()<CR>
 " nnoremap <leader>fg :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb :lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({}))<CR>
+nnoremap <leader>fb :lua require('telescope.builtin').buffers()<CR>
 nnoremap <leader>fh :lua require('telescope.builtin').help_tags()<CR>
+
+
 
 " move among buffers with CTRL
 map <C-J> :bnext<CR>
@@ -98,6 +104,11 @@ map <C-K> :bprev<CR>
 nnoremap <C-u> :UndotreeToggle<CR>
 
 :nnoremap <C-e> :CocCommand explorer<CR>
+" nmap <leader>def <Plug>(coc-definition)
+" nmap <leader>imp <Plug>(coc-implementation)
+" nmap <leader>ref <Plug>(coc-references)
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 
 nnoremap <leader>bd :Bdelete<CR>
 
@@ -143,13 +154,24 @@ vnoremap <leader>P "+P
 " autocmd BufEnter *.liquid :set ft=html
 " autocmd BufEnter *.scss.liquid :set ft=scss
 
-nnoremap <silent> K :call CocAction('doHover')<CR>
+nnoremap <leader>ho :call CocAction('doHover')<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 nmap <leader>do <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
 
-let g:coc_filetype_map = {
-      \ 'liquid': 'html',
-      \ }
+nmap <leader>td :TodoTelescope<CR>
+
+
+nmap <leader>ref :Telescope coc references<CR>
+nmap <leader>def :Telescope coc definitions<CR>
+nmap <leader>imp :Telescope coc implementations<CR>
+nmap <leader>diag :Telescope coc diagnostics<CR>
+nmap <leader>act :Telescope coc code_actions<CR>
+
+" let g:coc_filetype_map = {
+"       \ 'liquid': 'html',
+"       \ }
 
 
 nnoremap <silent> <C-z> :ToggleTerminal<Enter>
@@ -177,9 +199,72 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
 endif
 
 
-augroup autoindent
-  au!
-  autocmd BufWritePre * :normal gg=G``
-augroup End
+" augroup autoindent
+"   au!
+"   autocmd BufWritePre * :normal gg=G``
+" augroup End
 
 autocmd FileType * setlocal shiftwidth=2 softtabstop=4 expandtab
+vnoremap < <gv
+vnoremap > >gv
+augroup filetype_jsx
+    autocmd!
+    autocmd FileType javascript set filetype=javascriptreact
+augroup END
+
+
+
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+
+lua require('nvim-biscuits').setup({})
+
+lua <<EOF
+require('nvim-biscuits').setup({
+  cursor_line_only = true
+})
+EOF
+
+
+let g:dashboard_default_executive ='telescope'
+nmap <Leader>ss :<C-u>SessionSave<CR>
+nmap <Leader>sl :<C-u>SessionLoad<CR>
+let g:dashboard_custom_shortcut={
+\ 'last_session'       : 'SPC s l',
+\ 'find_history'       : 'SPC f h',
+\ 'find_file'          : 'SPC f f',
+\ 'new_file'           : 'SPC c n',
+\ 'change_colorscheme' : 'SPC t c',
+\ 'find_word'          : 'SPC f a',
+\ 'book_marks'         : 'SPC f b',
+\ }
+
+lua <<EOF
+require('telescope').load_extension('coc')
+require('telescope').setup{
+       defaults = {
+     layout_strategy = "vertical"
+     }
+   }
+EOF
+
+
+
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = false,
+    },
+    ensure_installed = "maintained"
+}
+EOF
